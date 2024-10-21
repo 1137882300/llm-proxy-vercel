@@ -27,6 +27,7 @@
 - 支持供应商：Groq、Google、OpenAI、Cerebras、NVIDIA、Mistral、Sambanova
 - 支持流式输出
 - 兼容 OpenAI API 规范
+- 自定义添加供应商：PLATFORM_API_URLS里添加
 
 注：大陆不可直接访问 vercel.app 域名。如想直接访问，可参考之前作者的另一个项目[llmproxy](https://github.com/ultrasev/llmproxy)，通过 cloudflare worker 部署 LLM API 反向代理。
 
