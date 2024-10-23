@@ -18,7 +18,6 @@ import re
 
 router = APIRouter()
 
-
 GEMINI_ENDPOINT = "https://generativelanguage.googleapis.com/v1beta/models/{}:generateContent"
 GEMINI_STREAM_ENDPOINT = "https://generativelanguage.googleapis.com/v1beta/models/{}:streamGenerateContent"
 
@@ -65,7 +64,8 @@ def convert_gemini_to_openai_response(gemini_response: dict, model: str) -> dict
         "choices": [{
             "message": {
                 "role": "assistant",
-                "content": gemini_response.get("candidates", [{}])[0].get("content", {}).get("parts", [{}])[0].get("text", "")
+                "content": gemini_response.get("candidates", [{}])[0].get("content", {}).get("parts", [{}])[0].get(
+                    "text", "")
             },
             "finish_reason": "stop",
             "index": 0
@@ -78,13 +78,13 @@ async def stream_gemini_response(model: str, payload: dict, api_key: str):
 
     async with httpx.AsyncClient() as client:
         async with client.stream(
-            "POST",
-            GEMINI_STREAM_ENDPOINT.format(model),
-            json=payload,
-            headers={
-                "Content-Type": "application/json",
-                "x-goog-api-key": api_key
-            }
+                "POST",
+                GEMINI_STREAM_ENDPOINT.format(model),
+                json=payload,
+                headers={
+                    "Content-Type": "application/json",
+                    "x-goog-api-key": api_key
+                }
         ) as response:
             async for line in response.aiter_lines():
                 line = line.strip()
@@ -129,8 +129,8 @@ async def stream_gemini_response(model: str, payload: dict, api_key: str):
 @router.post("/chat/completions")
 @router.post("/v1/chat/completions")
 async def proxy_chat_completions(
-    args: OpenAIProxyArgs,
-    authorization: str = Header(...),
+        args: OpenAIProxyArgs,
+        authorization: str = Header(...),
 ):
     api_key = authorization.split(" ")[1]
     model = args.model
