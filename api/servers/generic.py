@@ -16,6 +16,7 @@ PLATFORM_API_URLS: Dict[str, str] = {
     "sambanova": "https://api.sambanova.ai/v1/chat/completions",
 }
 
+
 @router.post("/{platform}/v1/chat/completions")
 @router.post("/{platform}/chat/completions")
 async def proxy_chat_completions(platform: str, args: OpenAIProxyArgs, authorization: str = Header(...)):
