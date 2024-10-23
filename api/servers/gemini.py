@@ -127,6 +127,7 @@ async def stream_gemini_response(model: str, payload: dict, api_key: str):
 
 
 @router.post("/chat/completions")
+@router.post("/v1/chat/completions")
 async def proxy_chat_completions(
     args: OpenAIProxyArgs,
     authorization: str = Header(...),
